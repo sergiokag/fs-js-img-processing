@@ -1,9 +1,15 @@
 import express from 'express';
-const app = express();
-const port = 3000;
+import cors from 'cors';
 
-app.get('/', function (_, res) {
-    res.send('Hello World!!');
-});
+import router from './router';
+import { logRequest } from './middlewares';
+
+const app = express();
+const port = 8000;
+
+app.use(logRequest);
+app.use(cors());
+app.use(express.static('src/public'));
+app.use(router);
 
 app.listen(port, () => console.log(`Listening at port ${port}`));
