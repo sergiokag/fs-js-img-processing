@@ -31,4 +31,4 @@ const resizeImage = async (filename: string, width: number, height: number) => {
     }
 };
 
-export default resizeImage;
+export { resizeImage };

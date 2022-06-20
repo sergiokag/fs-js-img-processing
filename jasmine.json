@@ -1,9 +1,11 @@
 {
-  "spec_dir": "src",
+  "spec_dir": "dist",
   "spec_files": [
-    "**/*.spec.ts"
+    "**/*.spec.js"
   ],
   "stopSpecOnExpectationFailure": true,
+  "failSpecWithNoExpectations": true,
+  "stopOnSpecFailure": true,
   "random": true,
   "reporters": [
     {
@@ -12,11 +14,5 @@
         "displayStacktrace": "all"
       }
     }
-  ],
-  "env": {
-    "failSpecWithNoExpectations": false,
-    "stopSpecOnExpectationFailure": false,
-    "stopOnSpecFailure": false,
-    "random": false
-  }
+  ]
 }

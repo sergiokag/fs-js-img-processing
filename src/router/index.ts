@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import resizeImage from '../services/resize.service';
+import { resizeImage } from '../services/resize.service';
 
 const router = Router();
 
