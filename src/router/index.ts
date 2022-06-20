@@ -1,15 +1,13 @@
 import { Router } from 'express';
-import apicache from 'apicache';
 import resizeImage from '../services/resize.service';
 
 const router = Router();
-const cache = apicache.middleware;
 
 router.get('/', (_, res) => {
     res.send('Hello! Visit route /api/images');
 });
 
-router.get('/api/images', cache('5 minutes'), async (req, res) => {
+router.get('/api/images', async (req, res) => {
     const { filename, width, height } = req.query;
 
     if (filename && width && height) {
@@ -25,13 +23,22 @@ router.get('/api/images', cache('5 minutes'), async (req, res) => {
                 <img style="margin: auto" src="/processed_images/${filename}_thumb.jpg">
             </body>`
         );
-    } else {
+        return;
+    }
+
+    if (!filename || !width || !height) {
         const message =
             'Bad request! You must set filename, width and height query params';
         res.status(400).send({
             message,
         });
+        return;
     }
+
+    const message = 'Something has gone wrong on the server';
+    res.status(500).send({
+        message,
+    });
 });
 
 export default router;

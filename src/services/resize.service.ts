@@ -15,7 +15,9 @@ const resizeImage = async (filename: string, width: number, height: number) => {
         if (!fs.existsSync(processedImageDirPath)) {
             fs.mkdir(processedImageDirPath, (error) => {
                 if (error) {
-                    throw error;
+                    throw new Error(
+                        `An error occurred during image processing! ${error}`
+                    );
                 }
                 console.log('directory created!');
             });
