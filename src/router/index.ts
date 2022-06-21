@@ -1,4 +1,7 @@
 import { Router } from 'express';
+import fs from 'fs';
+import path from 'path';
+
 import { resizeImage } from '../services/resize.service';
 
 const router = Router();
@@ -14,13 +17,27 @@ router.get('/api/images', async (req, res) => {
         const imgFileName = filename as string;
         const imgWidth = +width ? +width : 200;
         const imgHeight = +height ? +height : 200;
+        const processedImagePath = path.join(
+            __dirname,
+            `../public/processed_images/${filename}_${imgWidth}_${imgHeight}.jpg`
+        );
+
+        if (fs.existsSync(processedImagePath)) {
+            res.setHeader('Content-Type', 'text/html');
+            res.send(
+                `<body style="background-color:black; display: flex">
+                    <img style="margin: auto" src="/processed_images/${filename}_${imgWidth}_${imgHeight}.jpg">
+                </body>`
+            );
+            return;
+        }
 
         await resizeImage(imgFileName, imgWidth, imgHeight);
 
         res.setHeader('Content-Type', 'text/html');
         res.send(
             `<body style="background-color:black; display: flex">
-                <img style="margin: auto" src="/processed_images/${filename}_thumb.jpg">
+                <img style="margin: auto" src="/processed_images/${filename}_${imgWidth}_${imgHeight}.jpg">
             </body>`
         );
         return;

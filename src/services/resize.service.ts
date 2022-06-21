@@ -25,7 +25,12 @@ const resizeImage = async (filename: string, width: number, height: number) => {
 
         return await sharp(imagePath)
             .resize(width, height)
-            .toFile(path.join(processedImageDirPath, `${filename}_thumb.jpg`));
+            .toFile(
+                path.join(
+                    processedImageDirPath,
+                    `${filename}_${width}_${height}.jpg`
+                )
+            );
     } catch (error) {
         throw new Error(`An error occurred during image processing! ${error}`);
     }
