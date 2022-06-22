@@ -10,7 +10,8 @@
     "serve": "ts-node src/server.ts",
     "serve:dist": "npm run clean:dist && npm run copy-files && tsc && node dist/server.js",
     "watch": "nodemon --exec ts-node src/server.ts",
-    "test": "tsc && jasmine --config=jasmine.json"
+    "test": "tsc && jasmine --config=jasmine.json",
+    "lint": "eslint . --ext .ts"
   },
   "keywords": [
     "jasmine",
