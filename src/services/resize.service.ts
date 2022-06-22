@@ -12,6 +12,12 @@ const resizeImage = async (filename: string, width: number, height: number) => {
             '../public/processed_images'
         );
 
+        /***
+         * Checking if processed_image folder exists
+         * if it does not exist it creates
+         * so we can place the newly created
+         * images inside
+         */
         if (!fs.existsSync(processedImageDirPath)) {
             fs.mkdir(processedImageDirPath, (error) => {
                 if (error) {

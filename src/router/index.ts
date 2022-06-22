@@ -22,6 +22,12 @@ router.get('/api/images', async (req, res) => {
             `../public/processed_images/${filename}_${imgWidth}_${imgHeight}.jpg`
         );
 
+        /**
+         * It returns already created images
+         * if they got requested again
+         * we dont recreate them
+         */
+
         if (fs.existsSync(processedImagePath)) {
             res.setHeader('Content-Type', 'text/html');
             res.send(
