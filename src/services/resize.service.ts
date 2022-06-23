@@ -3,7 +3,11 @@ import fs from 'fs';
 
 import sharp from 'sharp';
 
-const resizeImage = async (filename: string, width: number, height: number) => {
+const resizeImage = async (
+    filename: string,
+    width: number,
+    height: number
+): Promise<sharp.OutputInfo> => {
     try {
         const imagesDirectory = path.join(__dirname, '../public/images');
         const imagePath = path.join(imagesDirectory, `${filename}.jpg`);
