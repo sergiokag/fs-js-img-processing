@@ -18,9 +18,15 @@ router.get(
         const imgWidth = +(width as string);
         const imgHeight = +(height as string);
 
-        if (imgFileName && (imgWidth >= 1920 || imgHeight >= 1280)) {
+        if (
+            imgFileName &&
+            (imgWidth >= 1920 ||
+                imgWidth < 60 ||
+                imgHeight >= 1280 ||
+                imgHeight < 40)
+        ) {
             const message =
-                'Bad request! The size of the image must be lower than 1920 x 1280!';
+                'Bad request! The size of the image must be lower than 1920 x 1280 and greater than 60 x 40!';
             res.status(400).send({
                 message,
             });
@@ -60,7 +66,7 @@ router.get(
             return;
         }
 
-        if (!imgFileName) {
+        if (!imgFileName || imgFileName !== 'fjord') {
             const message =
                 'Bad request! You must set fjord as a filename! Dont forget to set also the width & height';
             res.status(400).send({
